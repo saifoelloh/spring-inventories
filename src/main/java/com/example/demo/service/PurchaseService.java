@@ -4,10 +4,12 @@ import com.example.demo.entity.Purchase;
 import com.example.demo.repository.PurchaseRepository;
 import com.example.demo.service.impl.InterfacePurchase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class PurchaseService implements InterfacePurchase {
 
     @Autowired
