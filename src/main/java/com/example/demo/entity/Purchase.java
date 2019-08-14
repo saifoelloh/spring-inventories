@@ -1,7 +1,8 @@
 package com.example.demo.entity;
 
-import jdk.jfr.Timestamp;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 
@@ -11,17 +12,14 @@ public class Purchase {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Timestamp
+    @CreationTimestamp
+    @UpdateTimestamp
     private String id;
     private Float discount;
 
     @ManyToOne
     @JoinColumn
     private Customer customer;
-
-    public Purchase(Float discount) {
-        this.discount = discount;
-    }
 
     public Float getDiscount() {
         return discount;
