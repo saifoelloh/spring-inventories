@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface InterfaceCustomer {
 
     List<Customer> findAll();
-    Optional<Customer> findById();
-    boolean addCustomer();
-    boolean removeCustomer();
+    Optional<Customer> findById(String id);
+    boolean addCustomer(Customer customer);
+    boolean removeCustomer(String id);
 }
