@@ -25,13 +25,12 @@ public class Item {
     }
 
     public Item(String name, float purchasePrice, float sellingPrice, int stock, int sold) {
-        this.setName(name);
-        this.setPurchasePrice(purchasePrice);
-        this.setSellingPrice(sellingPrice);
-        this.setStock(stock);
-        this.setSold(sold);
+        this.name = name;
+        this.purchasePrice = purchasePrice;
+        this.sellingPrice = sellingPrice;
+        this.stock = stock;
+        this.sold = sold;
     }
-
 
     public String getId() {
         return id;
@@ -79,5 +78,17 @@ public class Item {
 
     public void setSold(int sold) {
         this.sold = sold;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", purchasePrice=" + purchasePrice +
+                ", sellingPrice=" + sellingPrice +
+                ", stock=" + stock +
+                ", sold=" + sold +
+                '}';
     }
 }
