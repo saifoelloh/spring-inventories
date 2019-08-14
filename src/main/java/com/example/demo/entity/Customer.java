@@ -2,10 +2,10 @@ package com.example.demo.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 public class Customer {
@@ -21,12 +21,16 @@ public class Customer {
     private String address;
     private float discount;
 
-    public Customer(String name, String email, String phone, String address, float discount) {
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Purchase> purchases;
+
+    public Customer(String name, String email, String phone, String address, float discount, Purchase... purchases) {
         this.setName(name);
         this.setEmail(email);
         this.setPhone(phone);
         this.setAddress(address);
         this.setDiscount(discount);
+        this.purchases = Stream.of(purchases).collect(Collectors.toList());
     }
 
 
