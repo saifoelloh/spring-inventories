@@ -9,6 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 @SpringBootApplication
@@ -23,10 +25,32 @@ public class DemoApplication {
     @Bean
     public CommandLineRunner demo() {
         return (args) -> {
-            repository.save(new Item("Sepatu Adidas", 20, 30, 10, 0));
-            repository.save(new Item("Sepatu Puma", 30, 40, 12, 0));
-            repository.save(new Item("Sepatu", 10, 100, 90, 0));
-            repository.save(new Item("Sepatu", 80, 120, 20, 0));
+            Scanner input = new Scanner(System.in);
+            Scanner input2 = new Scanner(System.in);
+            System.out.print("Masukan banyak item yg ingin di-input:\t");
+
+            int limit = input.nextInt();
+
+            for (int i = 0; i < limit; i++) {
+                Item item = new Item();
+                System.out.println("Item ke-"+(i+1));
+                System.out.print("Masukan nama produk:\t");
+                item.setName(input2.nextLine());
+                System.out.print("Mauskan harga beli:\t\t");
+                item.setPurchasePrice(input.nextFloat());
+                System.out.print("Masukan harga jual:\t\t");
+                item.setSellingPrice(input.nextFloat());
+                System.out.print("Masukan jumlah stock:\t");
+                item.setStock(input.nextInt());
+                System.out.print("Masukan jumlah terbeli:\t");
+                item.setSold(input.nextInt());
+                System.out.println();
+                repository.save(item);
+            }
+
+            System.out.println("--------------------------------------------");
+            System.out.println("Ini hasil bro!");
+            System.out.println("--------------------------------------------");
             for (Item item: repository.findAll()) {
                 System.out.println(item.toString());
             }
