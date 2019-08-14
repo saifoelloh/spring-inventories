@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @Entity
 public class Item {
@@ -14,14 +15,18 @@ public class Item {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @CreationTimestamp
-    @UpdateTimestamp
     private String id;
     private String name;
     private float purchasePrice;
     private float sellingPrice;
     private int stock;
     private int sold;
+
+    @CreationTimestamp
+    private LocalDateTime created_at;
+
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
 
     public Item() {
     }
@@ -91,6 +96,8 @@ public class Item {
                 ", sellingPrice=" + sellingPrice +
                 ", stock=" + stock +
                 ", sold=" + sold +
+                ", created_at=" + created_at +
+                ", updated_at=" + updated_at +
                 '}';
     }
 }
