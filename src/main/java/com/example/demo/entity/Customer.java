@@ -1,6 +1,8 @@
 package com.example.demo.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,7 +15,8 @@ public class Customer {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "id", unique = true)
+    @CreationTimestamp
+    @UpdateTimestamp
     private String id;
     private String name;
     private String email;
