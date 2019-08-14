@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Item;
 import com.example.demo.repository.ItemRepository;
+import com.example.demo.service.impl.InterfaceItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ItemService implements InterfaceItemService {
+public class ItemService implements InterfaceItem {
 
     @Autowired
     private ItemRepository repository;
