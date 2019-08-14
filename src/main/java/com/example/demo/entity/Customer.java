@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,8 +16,6 @@ public class Customer {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @CreationTimestamp
-    @UpdateTimestamp
     private String id;
     private String name;
     private String email;
@@ -24,8 +23,16 @@ public class Customer {
     private String address;
     private float discount;
 
+    @CreationTimestamp
+    private LocalDateTime created_at;
+
+    @UpdateTimestamp
+    private LocalDateTime updated_at;
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Purchase> purchases;
+
+    public Customer() {}
 
     public Customer(String name, String email, String phone, String address, float discount, Purchase... purchases) {
         this.setName(name);
@@ -34,6 +41,7 @@ public class Customer {
         this.setAddress(address);
         this.setDiscount(discount);
         this.purchases = Stream.of(purchases).collect(Collectors.toList());
+        this.purchases.forEach(x -> x.setCustomer(this));
     }
 
 
@@ -83,5 +91,19 @@ public class Customer {
 
     public void setDiscount(float discount) {
         this.discount = discount;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", discount=" + discount +
+                ", created_at=" + created_at +
+                ", updated_at=" + updated_at +
+                '}';
     }
 }
