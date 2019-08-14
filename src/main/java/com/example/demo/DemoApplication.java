@@ -1,7 +1,11 @@
 package com.example.demo;
 
+import com.example.demo.entity.Customer;
 import com.example.demo.entity.Item;
+import com.example.demo.entity.Purchase;
+import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.ItemRepository;
+import com.example.demo.repository.PurchaseRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,39 +24,33 @@ public class DemoApplication {
         SpringApplication.run(DemoApplication.class, args);
     }
 
-    @Autowired private ItemRepository repository;
+    @Autowired private ItemRepository itemRepository;
+    @Autowired private CustomerRepository customerRepository;
+    @Autowired private PurchaseRepository purchaseRepository;
 
     @Bean
     public CommandLineRunner demo() {
         return (args) -> {
             Scanner input = new Scanner(System.in);
-            Scanner input2 = new Scanner(System.in);
-            System.out.print("Masukan banyak item yg ingin di-input:\t");
 
-            int limit = input.nextInt();
+            Item item = new Item("sepatu baru", 20, 40, 20, 10);
+            itemRepository.save(item);
 
-            for (int i = 0; i < limit; i++) {
-                Item item = new Item();
-                System.out.println("Item ke-"+(i+1));
-                System.out.print("Masukan nama produk:\t");
-                item.setName(input2.nextLine());
-                System.out.print("Mauskan harga beli:\t\t");
-                item.setPurchasePrice(input.nextFloat());
-                System.out.print("Masukan harga jual:\t\t");
-                item.setSellingPrice(input.nextFloat());
-                System.out.print("Masukan jumlah stock:\t");
-                item.setStock(input.nextInt());
-                System.out.print("Masukan jumlah terbeli:\t");
-                item.setSold(input.nextInt());
-                System.out.println();
-                repository.save(item);
-            }
+            Customer customer = new Customer("joko", "joko@mail.co", "0888", "jl sesama", 10, new Purchase(10));
+            customerRepository.save(customer);
 
-            System.out.println("--------------------------------------------");
             System.out.println("Ini hasil bro!");
             System.out.println("--------------------------------------------");
-            for (Item item: repository.findAll()) {
-                System.out.println(item.toString());
+            for (Item barang: itemRepository.findAll()) {
+                System.out.println(barang.toString());
+            }
+            System.out.println("--------------------------------------------");
+            for (Customer pelanggan: customerRepository.findAll()) {
+                System.out.println(pelanggan.toString());
+            }
+            System.out.println("--------------------------------------------");
+            for (Purchase pembelian: purchaseRepository.findAll()) {
+                System.out.println(pembelian.toString());
             }
         };
     }
