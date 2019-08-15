@@ -110,8 +110,6 @@ public class Customer {
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 ", discount=" + discount +
-                ", created_at=" + created_at +
-                ", updated_at=" + updated_at +
                 '}';
     }
 }
