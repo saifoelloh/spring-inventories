@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
@@ -36,7 +37,7 @@ public class DemoApplication {
             Item item = new Item("sepatu baru", 20, 40, 20, 10);
             itemRepository.save(item);
 
-            Customer customer = new Customer("joko", "joko@mail.co", "0888", "jl sesama", 10, new Purchase(10));
+            Customer customer = new Customer("joko", "joko@mail.co", "0888", "jl sesama", 10, new Purchase(10), new Purchase(20), new Purchase(2));
             customerRepository.save(customer);
 
             System.out.println("Ini hasil bro!");
@@ -47,10 +48,8 @@ public class DemoApplication {
             System.out.println("--------------------------------------------");
             for (Customer pelanggan: customerRepository.findAll()) {
                 System.out.println(pelanggan.toString());
-            }
-            System.out.println("--------------------------------------------");
-            for (Purchase pembelian: purchaseRepository.findAll()) {
-                System.out.println(pembelian.toString());
+                List<Purchase> purchases = (List<Purchase>) pelanggan.getPurchases();
+                ListIterator<Purchase> purchaseListIterator = purchases.listIterator();
             }
         };
     }
