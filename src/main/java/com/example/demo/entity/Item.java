@@ -4,10 +4,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Item {
@@ -27,6 +26,9 @@ public class Item {
 
     @UpdateTimestamp
     private LocalDateTime updated_at;
+
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Bucket> buckets;
 
     public Item() {
     }
@@ -85,6 +87,14 @@ public class Item {
 
     public void setSold(int sold) {
         this.sold = sold;
+    }
+
+    public List<Bucket> getBuckets() {
+        return buckets;
+    }
+
+    public void setBuckets(List<Bucket> buckets) {
+        this.buckets = buckets;
     }
 
     @Override
