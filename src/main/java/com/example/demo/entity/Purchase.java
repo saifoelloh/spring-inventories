@@ -6,6 +6,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Purchase {
@@ -26,10 +28,18 @@ public class Purchase {
     @JoinColumn
     private Customer customer;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "item", targetEntity = Bucket.class)
+    private List<Item> items = new ArrayList<Item>();
+
     public Purchase() {    }
 
     public Purchase(float discount) {
         this.discount = discount;
+    }
+
+    public Purchase(float discount, Customer customer) {
+        this.discount = discount;
+        this.customer = customer;
     }
 
     public float getDiscount() {
@@ -46,6 +56,14 @@ public class Purchase {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     @Override
