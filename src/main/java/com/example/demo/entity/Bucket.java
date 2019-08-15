@@ -26,6 +26,10 @@ public class Bucket {
     @JoinColumn
     private Item item;
 
+    @ManyToOne
+    @JoinColumn
+    private Purchase purchase;
+
     public Bucket(){
 
     }
@@ -49,5 +53,13 @@ public class Bucket {
 
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public Purchase getPurchase() {
+        return purchase;
+    }
+
+    public void setPurchase(Purchase purchase) {
+        this.purchase = purchase;
     }
 }
