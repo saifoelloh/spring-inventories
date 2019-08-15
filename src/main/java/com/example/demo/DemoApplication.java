@@ -14,10 +14,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Scanner;
+import java.util.*;
 import java.util.logging.Logger;
 
 @SpringBootApplication
@@ -37,24 +34,74 @@ public class DemoApplication {
         return (args) -> {
             Scanner input = new Scanner(System.in);
 
-            Item item = new Item("sepatu baru", 20, 40, 20, 10);
-            itemRepository.save(item);
+            System.out.print("Masukan banyak barang\t: ");
+            int limit = Integer.parseInt(input.nextLine());
+            for (int i = 0; i < limit; i++) {
+                Item item = new Item();
+                System.out.println("Item ke-"+(i+1));
+                System.out.print("Masukan nama barang\t\t\t: ");
+                item.setName(input.nextLine());
+                System.out.print("Masukan harga beli barang\t: ");
+                item.setPurchasePrice(input.nextFloat());
+                System.out.print("Masukan harga jual barang\t: ");
+                item.setSellingPrice(input.nextFloat());
+                System.out.print("Masukan stock barang\t\t: ");
+                item.setStock(input.nextInt());
+                System.out.print("Masukan sold barang\t\t\t: ");
+                item.setSold(input.nextInt());
+                itemRepository.save(item);
+                System.out.println();
+            }
 
-            Customer customer = new Customer("joko", "joko@mail.co", "0888", "jl sesama", 10, new Purchase(10), new Purchase(20), new Purchase(2));
-            customerRepository.save(customer);
-
-            System.out.println("Ini hasil bro!");
+            System.out.println("\n\nItem");
             System.out.println("--------------------------------------------");
             for (Item barang: itemRepository.findAll()) {
                 System.out.println(barang.toString());
             }
+
+            System.out.print("\nMasukan banyak customer\t: ");
+            limit = Integer.parseInt(input.nextLine());
+
+            for (int i = 0; i < limit; i++) {
+                Customer customer = new Customer();
+                System.out.println("Customer ke-"+(i+1));
+                System.out.print("Masukan nama customer\t: ");
+                customer.setName(input.nextLine());
+                System.out.print("Masukan email\t\t\t: ");
+                customer.setEmail(input.nextLine());
+                System.out.print("Masukan phone\t\t\t: ");
+                customer.setPhone(input.nextLine());
+                System.out.print("Masukan address\t\t\t: ");
+                customer.setAddress(input.nextLine());
+                System.out.print("Masukan discount\t\t: ");
+                customer.setDiscount(input.nextFloat());
+                customerRepository.save(customer);
+            }
+
+            System.out.println("\n\nCustomer");
             System.out.println("--------------------------------------------");
-            for (Customer pelanggan: customerRepository.findAll()) {
-                System.out.println(pelanggan.toString());
-                for (Purchase purchase: pelanggan.getPurchases()) {
+            for (Customer customer: customerRepository.findAll()) {
+                System.out.println(customer.toString());
+                System.out.print("Apkah ia membeli barang ? ");
+                boolean b = input.nextBoolean();
+                if (b) {
+                    System.out.print("Masukan harga\t\t: ");
+                    Purchase purchase = new Purchase(input.nextFloat(), customer);
+                    purchaseRepository.save(purchase);
+                }
+                System.out.println("Purchase "+customer.getName());
+                System.out.println("--------------------------------------------");
+                for (Purchase purchase: customer.getPurchases()) {
                     System.out.println(purchase.toString());
                 }
+                System.out.println();
             }
+
+//            System.out.println("\n\nPurchase");
+//            System.out.println("--------------------------------------------");
+//            for (Purchase purchase: purchaseRepository.findAll()) {
+//                System.out.println(purchase.toString());
+//            }
         };
     }
 }
