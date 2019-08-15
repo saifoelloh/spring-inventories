@@ -6,6 +6,7 @@ import com.example.demo.entity.Purchase;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.PurchaseRepository;
+import com.example.demo.service.CustomerService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,6 +14,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
@@ -28,6 +30,7 @@ public class DemoApplication {
     @Autowired private ItemRepository itemRepository;
     @Autowired private CustomerRepository customerRepository;
     @Autowired private PurchaseRepository purchaseRepository;
+    @Autowired private CustomerService customerService;
 
     @Bean
     public CommandLineRunner demo() {
@@ -48,8 +51,9 @@ public class DemoApplication {
             System.out.println("--------------------------------------------");
             for (Customer pelanggan: customerRepository.findAll()) {
                 System.out.println(pelanggan.toString());
-                List<Purchase> purchases = (List<Purchase>) pelanggan.getPurchases();
-                ListIterator<Purchase> purchaseListIterator = purchases.listIterator();
+                for (Purchase purchase: pelanggan.getPurchases()) {
+                    System.out.println(purchase.toString());
+                }
             }
         };
     }

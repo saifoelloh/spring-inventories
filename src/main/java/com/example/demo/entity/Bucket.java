@@ -26,6 +26,10 @@ public class Bucket {
     @JoinColumn
     private Item item;
 
+    public Bucket(){
+
+    }
+
     public Bucket(int total, Item item) {
         this.total = total;
         this.item = item;
