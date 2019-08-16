@@ -31,8 +31,9 @@ public class Item {
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Bucket> buckets;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "purchase", targetEntity = Bucket.class)
-    private List<Purchase> purchases = new ArrayList<Purchase>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinColumn
+    private List<Purchase> purchases;
 
     public Item() {
     }
