@@ -6,7 +6,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,23 +17,18 @@ public class Purchase {
     private String id;
     private float discount;
 
+    @ManyToOne
+    @JoinColumn
+    private Customer customer;
+
+    @OneToMany(mappedBy = "purchase")
+    List<ItemPurchase> itemPurchases;
+
     @CreationTimestamp
     private LocalDateTime created_at;
 
     @UpdateTimestamp
     private LocalDateTime updated_at;
-
-    @ManyToOne
-    @JoinColumn
-    private Customer customer;
-
-    @OneToMany
-    @JoinColumn
-    private Bucket bucket;
-
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Bucket.class, mappedBy = "item", cascade = CascadeType.ALL)
-    @JoinColumn
-    private List<Item> items;
 
     public Purchase() {    }
 
@@ -61,14 +55,6 @@ public class Purchase {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
     }
 
     @Override
