@@ -23,14 +23,15 @@ public class Customer {
     private String address;
     private float discount;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn
+    private List<Purchase> purchases;
+
     @CreationTimestamp
     private LocalDateTime created_at;
 
     @UpdateTimestamp
     private LocalDateTime updated_at;
-
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Purchase> purchases;
 
     public Customer() {}
 
