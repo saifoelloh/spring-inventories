@@ -1,8 +1,10 @@
 package com.example.demo;
 
+import com.example.demo.entity.Bucket;
 import com.example.demo.entity.Customer;
 import com.example.demo.entity.Item;
 import com.example.demo.entity.Purchase;
+import com.example.demo.repository.BucketRepository;
 import com.example.demo.repository.CustomerRepository;
 import com.example.demo.repository.ItemRepository;
 import com.example.demo.repository.PurchaseRepository;
@@ -27,7 +29,7 @@ public class DemoApplication {
     @Autowired private ItemRepository itemRepository;
     @Autowired private CustomerRepository customerRepository;
     @Autowired private PurchaseRepository purchaseRepository;
-    @Autowired private CustomerService customerService;
+    @Autowired private BucketRepository bucketRepository;
 
     @Bean
     public CommandLineRunner demo() {
@@ -85,7 +87,7 @@ public class DemoApplication {
                 System.out.print("Apkah ia membeli barang ? ");
                 boolean b = input.nextBoolean();
                 if (b) {
-                    System.out.print("Masukan harga\t\t: ");
+                    System.out.print("Masukan diskon\t\t: ");
                     Purchase purchase = new Purchase(input.nextFloat(), customer);
                     purchaseRepository.save(purchase);
                 }
@@ -96,12 +98,6 @@ public class DemoApplication {
                 }
                 System.out.println();
             }
-
-//            System.out.println("\n\nPurchase");
-//            System.out.println("--------------------------------------------");
-//            for (Purchase purchase: purchaseRepository.findAll()) {
-//                System.out.println(purchase.toString());
-//            }
         };
     }
 }
