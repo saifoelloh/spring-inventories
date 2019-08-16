@@ -28,8 +28,13 @@ public class Purchase {
     @JoinColumn
     private Customer customer;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "item", targetEntity = Bucket.class)
-    private List<Item> items = new ArrayList<Item>();
+    @OneToMany
+    @JoinColumn
+    private Bucket bucket;
+
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Bucket.class, mappedBy = "item", cascade = CascadeType.ALL)
+    @JoinColumn
+    private List<Item> items;
 
     public Purchase() {    }
 
