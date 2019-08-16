@@ -34,9 +34,10 @@ public class Bucket {
 
     }
 
-    public Bucket(int total, Item item) {
+    public Bucket(int total, Item item, Purchase purchase) {
         this.total = total;
         this.item = item;
+        this.purchase = purchase;
     }
 
     public int getTotal() {
